@@ -9,18 +9,18 @@ A redesign of [zibadebeaute.com](https://zibadebeaute.com) for Ziba Ahmadi, a Gu
 
 ## Results
 
-Measured with Google PageSpeed Insights (Lighthouse 13.5.0) on both sites, minutes apart, on October 13, 2026.
+Measured with Google PageSpeed Insights (Lighthouse 13.5.0) on both sites, one minute apart, on October 13, 2026. The new site is the Astro build on Cloudflare Pages.
 
 | | Old, mobile | New, mobile | Old, desktop | New, desktop |
 |---|---:|---:|---:|---:|
-| Performance | 44 | **99** | 79 | **100** |
+| Performance | 56 | **100** | 83 | **100** |
 | Accessibility | 78 | **100** | 90 | **100** |
 | Best practices | 96 | **100** | 96 | **100** |
 | SEO | 85 | **100** | 92 | **100** |
 | Largest contentful paint | 10.7 s | **1.2 s** | 1.9 s | **0.3 s** |
-| Page weight | 2,852 KiB | **89 KiB** | 2,708 KiB | **342 KiB** |
+| Page weight | 2,852 KiB | **93 KiB** | 2,708 KiB | **369 KiB** |
 
-PageSpeed varies run to run. An earlier run scored the old site 56 on mobile performance; [all runs are recorded](metrics/psi.json) with links to the full reports.
+PageSpeed varies run to run (across three runs on October 12–13 the old site scored 44–56 on mobile performance; the table uses its best). [All runs are recorded](public/metrics/psi.json) with links to the full reports.
 
 Other measured changes on the home page:
 
