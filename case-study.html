@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case study: Ziba de Beauté redesign | Propolis Freelancing</title>
+<meta name="description" content="Before-and-after comparison of the Ziba de Beauté website redesign, with every finding sourced and every score measured.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,400..900&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .cs { padding: clamp(48px, 7vw, 88px) 0; }
+  .cs + .cs { padding-top: 0; }
+  .cs h1 { font-size: var(--step-4); font-weight: 900; font-variation-settings: "wdth" 130; line-height: .95; max-width: 14ch; }
+  .cs .lede { margin-top: 20px; max-width: 62ch; font-size: var(--step-1); }
+  .cs h2 { margin-bottom: 18px; }
+  .cs p + p { margin-top: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: var(--step--1); }
+  caption { text-align: left; color: var(--muted); padding-bottom: 10px; }
+  th, td { text-align: left; vertical-align: top; padding: 12px 12px 12px 0; border-bottom: 1px solid var(--line); }
+  thead th { border-bottom: 2px solid var(--ink); font-weight: 700; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .bad { color: var(--thread); font-weight: 700; }
+  .good { color: var(--turq); font-weight: 700; }
+  .scroll { overflow-x: auto; }
+  .note { margin-top: 14px; color: var(--muted); font-size: var(--step--1); max-width: 70ch; }
+  .back { display: inline-block; margin-top: 24px; }
+  .empty { color: var(--muted); }
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="wordmark" href="index.html">Ziba <span>de Beauté</span></a>
+  <a class="btn btn-small" href="index.html">See the new site</a>
+</header>
+<main id="main">
+
+<section class="cs">
+  <div class="wrap">
+    <h1>Redesigning Ziba de Beauté</h1>
+    <p class="lede">Ziba Ahmadi runs two threading salons in Gainesville. The old WordPress site had the right information spread across five pages, with template leftovers, typos and out-of-date details. The new site puts the full menu, prices, deal days, both locations and proof of reputation on one page, and links each service straight to its booking page.</p>
+    <p class="note">Every finding below was checked against the live old site on October 12, 2026. Scores marked "pending" are filled in by <code>scripts/measure.mjs</code>, which runs Google PageSpeed Insights on both sites; nothing on this page is estimated.</p>
+  </div>
+</section>
+
+<section class="cs">
+  <div class="wrap">
+    <h2>Lighthouse scores</h2>
+    <div class="scroll">
+      <table id="psi">
+        <caption>Google PageSpeed Insights, 0–100. Higher is better.</caption>
+        <thead><tr><th>Measure</th><th class="num">Old, mobile</th><th class="num">New, mobile</th><th class="num">Old, desktop</th><th class="num">New, desktop</th></tr></thead>
+        <tbody>
+          <tr data-k="performance"><td>Performance</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td></tr>
+          <tr data-k="accessibility"><td>Accessibility</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td></tr>
+          <tr data-k="best-practices"><td>Best practices</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td></tr>
+          <tr data-k="seo"><td>SEO</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td></tr>
+          <tr data-m="lcp_s" data-u=" s"><td>Largest contentful paint</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td></tr>
+          <tr data-m="weight_kb" data-u=" KB"><td>Page weight</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td></tr>
+          <tr data-m="requests" data-u=""><td>Network requests</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" id="psi-when">Pre-deploy check of the new site, run locally with Lighthouse 12.8.2: accessibility 100, SEO 100 on mobile and desktop. Performance is not reported until the live run, because the local run could not load the web fonts or photos.</p>
+  </div>
+</section>
+
+<section class="cs">
+  <div class="wrap">
+    <h2>What changed</h2>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Check</th><th>Old site</th><th>New site</th></tr></thead>
+        <tbody>
+          <tr><td>Leftover template content shown to visitors</td><td><span class="bad">4 items</span> on every page: a "Hello world!" post, an "April 2017" archive, an "Uncategorized" category and the free theme's credit link</td><td><span class="good">0</span></td></tr>
+          <tr><td>Spelling errors in visible text</td><td><span class="bad">4</span>: "Buisiness", "Achievments", "Archieves", "the she holds"</td><td><span class="good">0</span></td></tr>
+          <tr><td>Locations shown on the Contact page</td><td><span class="bad">1 of 2</span>. Page last edited April 2020</td><td><span class="good">2 of 2</span>, with directions for each</td></tr>
+          <tr><td>Reviews page rating</td><td><span class="bad">"Average rating: 0 reviews"</span> displayed under 10 five-star Yelp reviews</td><td><span class="good">5.0 on Google</span>, 2,441 reviews at the Campus salon, linked to the source</td></tr>
+          <tr><td>Search description</td><td><span class="bad">Lists 3 services not offered</span>: hair cutting, hair coloring, microblading</td><td><span class="good">Describes threading only</span></td></tr>
+          <tr><td>"Text only" phone number</td><td><span class="bad">Opens a phone call</span> (<code>tel:</code> link)</td><td><span class="good">Opens a text message</span> (<code>sms:</code> link)</td></tr>
+          <tr><td>Prices on the home page</td><td><span class="bad">No</span>. Visitors open a second page to see any price</td><td><span class="good">All 14 services</span>, with a filter by need</td></tr>
+          <tr><td>Monthly deal days</td><td>Fixed text ("first Monday of each month")</td><td><span class="good">Shows the next date</span>, and flags it on the day</td></tr>
+          <tr><td>Canonical URLs using http instead of https</td><td><span class="bad">2 pages</span> (About, Contact)</td><td><span class="good">0</span></td></tr>
+          <tr><td>Stock photos in the service list</td><td><span class="bad">Yes</span>, at least 3 from Pexels and Pixabay</td><td><span class="good">No</span>. Only photos of Ziba and her record events</td></tr>
+          <tr><td>Business details for Google (LocalBusiness structured data)</td><td>Not checked</td><td><span class="good">Both salons</span>, with address and coordinates</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <a class="back" href="index.html">See the new site</a>
+  </div>
+</section>
+
+</main>
+<script>
+(function () {
+  fetch("metrics/psi.json", { cache: "no-store" })
+    .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+    .then(function (d) {
+      var cols = [d.old.mobile, d.new.mobile, d.old.desktop, d.new.desktop];
+      document.querySelectorAll("#psi tbody tr").forEach(function (tr) {
+        var tds = tr.querySelectorAll("td.num");
+        cols.forEach(function (c, i) {
+          var v = tr.dataset.k ? c.scores[tr.dataset.k] : c[tr.dataset.m];
+          if (v === null || v === undefined) return;
+          tds[i].textContent = v + (tr.dataset.u || "");
+          tds[i].classList.remove("empty");
+        });
+      });
+      document.getElementById("psi-when").textContent =
+        "Measured with Google PageSpeed Insights on " + new Date(d.measuredAt).toLocaleDateString("en-US", { dateStyle: "long" }) + ".";
+    })
+    .catch(function () {});
+})();
+</script>
+</body>
+</html>
