@@ -1,0 +1,31 @@
+---
+// A gallery photo, or a before/after pair shown as a compare slider.
+// Astro resizes uploads to WebP at build time.
+import { getImage } from "astro:assets";
+const { g, index } = Astro.props;
+
+const label = g.alt || g.caption || g.service || `Eyebrow threading by Ziba, photo ${index + 1}`;
+const before = await getImage({ src: g.before, width: Math.min(900, g.before.width), format: "webp", quality: 82 });
+// The after photo is drawn on top of the before photo and cropped to its shape (object-fit: cover).
+const after = g.after ? await getImage({ src: g.after, width: Math.min(900, g.after.width), format: "webp", quality: 82 }) : null;
+const bw = before.attributes.width, bh = before.attributes.height;
+---
+<li>
+  {after ? (
+    <figure class="ba">
+      <div class="ba-frame">
+        <img class="ba-before" src={before.src} width={bw} height={bh} alt={"Before: " + label} loading="lazy" decoding="async">
+        <img class="ba-after" src={after.src} width={bw} height={bh} alt={"After: " + label} loading="lazy" decoding="async">
+        <span class="ba-tag ba-tag-before" aria-hidden="true">Before</span><span class="ba-tag ba-tag-after" aria-hidden="true">After</span>
+        <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Compare before and after. Move left to show more of the after photo.">
+        <span class="ba-handle" aria-hidden="true"></span>
+      </div>
+      {(g.service || g.caption || g.ig) && <figcaption>{g.service && <strong>{g.service}</strong>}{g.caption}{g.ig && <> <a href={g.ig}>See on Instagram</a></>}</figcaption>}
+    </figure>
+  ) : (
+    <figure>
+      <div class="shot"><img src={before.src} width={bw} height={bh} alt={label} loading="lazy" decoding="async"></div>
+      {(g.service || g.caption || g.ig) && <figcaption>{g.service && <strong>{g.service}</strong>}{g.caption}{g.ig && <> <a href={g.ig}>See on Instagram</a></>}</figcaption>}
+    </figure>
+  )}
+</li>
