@@ -176,12 +176,14 @@ a:hover { color: var(--ink); }
 .about-grid p { margin-top: 18px; max-width: 60ch; }
 .facts { margin: 22px 0 0; padding: 0 0 0 1.1em; }
 .facts li { margin-top: 6px; }
-.records { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 48px; align-items: start; }
-.records img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 4px; }
+/* Column widths match each photo's aspect ratio, so every photo is the same height and none is cropped. */
+.records { display: grid; grid-template-columns: .651fr .734fr .785fr 1.353fr; gap: 14px; margin-top: 48px; align-items: start; }
+.records img { width: 100%; height: auto; border-radius: 4px; }
 @media (max-width: 760px) {
   .about-grid { grid-template-columns: 1fr; }
   .portrait { max-width: 340px; }
-  .records { grid-template-columns: repeat(2, 1fr); }
+  .records { grid-template-columns: 1fr 1fr; }
+  .records img:last-child { grid-column: 1 / -1; }
 }
 
 /* Press */

@@ -29,7 +29,7 @@ git add metrics/psi.json && git commit -m "Add PageSpeed results" && git push
 
 ## Open items before launch
 
-- **Photos are hotlinked** from the current WordPress site (`zibadebeaute.com/wp-content/...`). If the old site is shut down, they will break. Save them into `assets/` and update the `src` paths.
+- Photos live in `assets/` as WebP, resized to their largest display size. Combined they are 249 KB, down from 544 KB as JPEGs on the old site.
 - **Booking still runs on the old WordPress booking pages.** Each Book button links to the existing page for that service. If the old site is replaced at the same domain, booking needs a new home (for example Square or Vagaro) before launch.
 - **Hours:** the site says "Monday to Saturday, by appointment only," as the old site does. Google Maps lists both salons as open daily. Confirm with Ziba which is right.
 - `canonical` and `og:url` point to `https://zibadebeaute.com/`. Keep them only if this site replaces the old one at that domain.
