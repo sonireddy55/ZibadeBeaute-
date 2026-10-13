@@ -228,7 +228,18 @@ ${gallery.slice(0, 3).map(renderGalleryItem).join("\n")}
     services: services.map((s) => ({ id: s.id, name: s.name, price: s.price, mins: s.minutes, group: CATEGORIES[s.category], note: s.note, cal: s.cal, deal: s.deal })),
     online: settings.online, closedDays: settings.closed, defaultCalendar: services.find((s) => s.cal)?.cal || DEFAULT_CALENDAR
   };
+  // Service options are rendered here (not by book.js) so the page doesn't shift on load.
+  const groupsOrder = Object.keys(CATEGORIES).filter((c) => services.some((s) => s.category === c));
+  const serviceOptions = groupsOrder.map((c) => `          <div class="opt-group">
+            <p class="opt-group-title">${esc(CATEGORIES[c])}</p>
+${services.filter((s) => s.category === c).map((s) => `            <label class="opt opt-service">
+              <input type="radio" name="service" value="${s.id}">
+              <span class="opt-body"><span class="opt-title">${esc(s.name)}</span>${s.note ? `<span class="opt-sub">${esc(s.note)}</span>` : ""}${s.deal ? `<span class="opt-deal">$${s.deal.price} on the ${esc(s.deal.label)} of every month</span>` : ""}</span>
+              <span class="opt-meta"><span class="opt-price">$${s.price}</span><span class="opt-mins">${s.minutes} min</span></span>
+            </label>`).join("\n")}
+          </div>`).join("\n");
   let book = await readFile(r("src/book.html"), "utf8");
+  book = book.replace("{{SERVICE_OPTIONS}}", serviceOptions);
   book = book.replace("{{BOOK_DATA}}", JSON.stringify(bookData).replace(/</g, "\\u003c")).replaceAll("{{HOURS}}", esc(settings.hours));
 
   // gallery.html
