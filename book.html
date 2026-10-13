@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book an appointment | Ziba de Beauté</title>
+<meta name="description" content="Book eyebrow threading with Ziba at her Campus or Thornebrook salon in Gainesville, FL.">
+<meta name="theme-color" content="#5E3A4C">
+<link rel="preload" href="assets/fonts/anybody-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+<script>document.documentElement.classList.add("js")</script>
+</head>
+<body class="booking">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <a class="wordmark" href="index.html" aria-label="Ziba de Beauté, home">Ziba <span>de Beauté</span></a>
+  <a class="bar-back" href="index.html#services">All services</a>
+</header>
+
+<main id="main">
+  <section class="book-head">
+    <div class="wrap">
+      <h1>Book with Ziba</h1>
+      <p>Choose a service and a salon. Most visits take 5 to 20 minutes.</p>
+    </div>
+  </section>
+
+  <div class="wrap book-grid">
+    <form id="book-form" class="book-form" novalidate>
+
+      <fieldset class="step" id="step-service">
+        <legend><span class="step-n">1</span>Service</legend>
+        <div class="opts opts-services" id="service-list"></div>
+        <p class="field-error" id="err-service" hidden>Choose a service to continue.</p>
+      </fieldset>
+
+      <fieldset class="step" id="step-salon">
+        <legend><span class="step-n">2</span>Salon</legend>
+        <div class="opts opts-salons">
+          <label class="opt opt-salon">
+            <input type="radio" name="salon" value="campus">
+            <span class="opt-body"><span class="opt-title">Campus</span><span class="opt-sub">805 NW 13th St, Gainesville</span></span>
+          </label>
+          <label class="opt opt-salon">
+            <input type="radio" name="salon" value="thornebrook">
+            <span class="opt-body"><span class="opt-title">Thornebrook</span><span class="opt-sub">2441 NW 43rd St, Suite 7</span></span>
+          </label>
+        </div>
+        <p class="field-error" id="err-salon" hidden>Choose a salon to continue.</p>
+      </fieldset>
+
+      <fieldset class="step" id="step-when">
+        <legend><span class="step-n">3</span>When works for you</legend>
+        <div class="when">
+          <label class="text-field">
+            <span class="field-label">Day</span>
+            <input type="date" id="day" name="day">
+          </label>
+          <div class="tod" role="radiogroup" aria-label="Time of day">
+            <label class="opt opt-chip"><input type="radio" name="tod" value="morning"><span>Morning</span></label>
+            <label class="opt opt-chip"><input type="radio" name="tod" value="afternoon"><span>Afternoon</span></label>
+            <label class="opt opt-chip"><input type="radio" name="tod" value="evening"><span>Evening</span></label>
+          </div>
+        </div>
+        <p class="field-hint" id="day-hint">Open Monday to Saturday, by appointment.</p>
+        <p class="field-error" id="err-day" hidden>Ziba is closed on Sundays. Pick Monday to Saturday.</p>
+      </fieldset>
+
+      <fieldset class="step" id="step-name">
+        <legend><span class="step-n">4</span>Your name</legend>
+        <label class="text-field">
+          <span class="field-label">First name</span>
+          <input type="text" id="name" name="name" autocomplete="given-name" maxlength="40">
+        </label>
+        <p class="field-error" id="err-name" hidden>Add your first name so Ziba knows who's texting.</p>
+      </fieldset>
+    </form>
+
+    <aside class="summary" aria-labelledby="summary-title">
+      <h2 id="summary-title">Your visit</h2>
+      <dl class="sum-list">
+        <div><dt>Service</dt><dd id="sum-service">Not chosen yet</dd></div>
+        <div><dt>Price</dt><dd id="sum-price">–</dd></div>
+        <div><dt>Salon</dt><dd id="sum-salon">Not chosen yet</dd></div>
+        <div><dt>When</dt><dd id="sum-when">Any time</dd></div>
+      </dl>
+      <p class="sum-deal" id="sum-deal" hidden></p>
+
+      <div class="actions" id="actions-online" hidden>
+        <a class="btn btn-block" id="go-online" href="#">Book online</a>
+        <p class="action-note">Opens Ziba's booking page with live open times.</p>
+      </div>
+
+      <div class="actions" id="actions-default">
+        <a class="btn btn-block" id="go-text" href="sms:+13523284727">Text Ziba to book</a>
+        <a class="btn btn-block btn-outline" id="go-calendar" href="https://zibadebeaute.com/booking-eyebrows/">See open times</a>
+        <p class="action-note">Texting is fastest: Ziba replies to confirm your time. "See open times" opens her current booking calendar. The phone line is text only.</p>
+      </div>
+
+      <div class="msg-preview" id="msg-preview" hidden>
+        <p class="field-label">Your message</p>
+        <p class="msg" id="msg-text"></p>
+        <button type="button" class="link-btn" id="copy-msg">Copy message</button>
+        <span class="copy-status" id="copy-status" role="status" aria-live="polite"></span>
+        <p class="action-note">On a computer? Copy it and text it to <a href="sms:+13523284727">(352) 328-4727</a>.</p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="foot-mark">Ziba de Beauté</p>
+    <p class="credit"><a href="index.html">Back to the home page</a></p>
+  </div>
+</footer>
+
+<script src="book.js" defer></script>
+</body>
+</html>
