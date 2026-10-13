@@ -385,3 +385,33 @@ a:hover { color: var(--berry-dark); }
 .msg { margin-top: 6px; padding: 12px 14px; background: #F3E6EC; border-radius: 14px 14px 14px 4px; font-size: var(--step--1); line-height: 1.45; }
 .link-btn { margin-top: 8px; padding: 0; border: 0; background: none; color: var(--berry); font: 700 var(--step--1)/1.4 var(--body); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 44px; }
 .copy-status { margin-left: 8px; color: var(--gold-dark); font-size: var(--step--1); font-weight: 600; }
+
+/* Gallery */
+.gallery { padding: clamp(36px, 6vw, 72px) 0 clamp(48px, 7vw, 88px); }
+.gallery-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 22px; }
+.gallery-grid figure { margin: 0; }
+.gallery-grid figcaption { margin-top: 10px; font-size: var(--step--1); color: var(--muted); }
+.gallery-grid figcaption strong { display: block; color: var(--mauve); font-size: var(--step-0); }
+.gallery-grid .shot { border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
+.gallery-grid .shot img { width: 100%; height: auto; }
+.gallery-more { margin: 32px 0 20px; }
+.gallery-empty { padding: 28px; background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--gold); border-radius: 12px; max-width: 60ch; }
+
+/* Before/after compare. No JS: side by side. With JS: one frame with a draggable divider. */
+.ba-frame { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: #fff; }
+.ba-frame img { width: 100%; height: auto; display: block; }
+.ba-tag { position: absolute; top: 10px; padding: 3px 10px; border-radius: 999px; background: rgba(46,27,37,.72); color: #fff; font-size: 0.8125rem; font-weight: 600; pointer-events: none; }
+.ba-tag-before { left: 10px; }
+.ba-tag-after { right: 10px; }
+.ba-range, .ba-handle { display: none; }
+.ba-live .ba-frame { display: block; gap: 0; }
+.ba-live .ba-after { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; clip-path: inset(0 0 0 var(--pos, 50%)); }
+.ba-live .ba-handle { display: block; position: absolute; top: 0; bottom: 0; left: var(--pos, 50%); width: 2px; margin-left: -1px; background: var(--gold-light); pointer-events: none; }
+.ba-live .ba-handle::after { content: ""; position: absolute; top: 50%; left: 50%; width: 36px; height: 36px; margin: -18px 0 0 -18px; border-radius: 50%; background: var(--mauve); border: 2px solid var(--gold-light); box-shadow: 0 2px 10px rgba(46,27,37,.35); }
+.ba-live .ba-range { display: block; position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+.ba-live .ba-range:focus-visible + .ba-handle::after { outline: 3px solid var(--berry); outline-offset: 3px; }
+
+/* Home page gallery teaser */
+.teaser { padding: clamp(56px, 8vw, 96px) 0; }
+.teaser .gallery-grid { margin-top: 26px; }
+.teaser-link { display: inline-block; margin-top: 24px; font-weight: 700; }

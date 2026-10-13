@@ -2,34 +2,13 @@
 (function () {
   "use strict";
 
-  // When Ziba's new booking system is live (for example Square Appointments), paste its
-  // booking link here. "Book online" then becomes the main button. Leave empty to use texting
-  // plus the current calendar. Optional per-salon links override the main one.
-  var ONLINE_BOOKING = {
-    name: "",            // e.g. "Square"
-    url: "",             // e.g. "https://book.squareup.com/appointments/XXXX"
-    bySalon: { campus: "", thornebrook: "" }
-  };
-
+  // Services, deals, closed days and the online booking link come from content/*.json,
+  // injected by scripts/build.mjs. Ziba edits them in Pages CMS.
+  var DATA = JSON.parse(document.getElementById("book-data").textContent);
+  var ONLINE_BOOKING = DATA.online;
+  var SERVICES = DATA.services;
+  var CLOSED = DATA.closedDays; // 0 = Sunday
   var PHONE = "+13523284727";
-  var OLD = "https://zibadebeaute.com/";
-  // nth / dow: the monthly deal day (dow 0 = Sunday). Same rules as the home page.
-  var SERVICES = [
-    { id: "brows", name: "Eyebrow threading", price: 25, mins: 5, group: "Brows", note: "Not offering a thinner arch.", cal: "booking-eyebrows/", deal: { price: 20, nth: 1, dow: 1, label: "first Monday" } },
-    { id: "tint", name: "Eyebrow tinting", price: 35, mins: 10, group: "Brows", cal: "booking-eyebrow-tinting/" },
-    { id: "brows-tint", name: "Eyebrow threading and tinting", price: 50, mins: 10, group: "Brows", cal: "booking-eyebrow-tint/" },
-    { id: "brows-lip", name: "Eyebrow threading and upper lip", price: 35, mins: 10, group: "Brows and more", cal: "booking-eyebrow-and-upper-lip/", deal: { price: 30, nth: 2, dow: 2, label: "second Tuesday" } },
-    { id: "brows-tint-lip", name: "Eyebrow threading and tinting, plus upper lip", price: 65, mins: 15, group: "Brows and more", cal: "booking-eyebrow-threading-tinting-upper-lip/", deal: { price: 60, nth: 3, dow: 3, label: "third Wednesday" } },
-    { id: "brows-tint-lip-chin", name: "Eyebrow threading and tinting, plus upper lip and chin", price: 80, mins: 20, group: "Brows and more", cal: "booking-eyebrow-threading-tinting-upper-lip-chin/" },
-    { id: "full-face", name: "Full face", price: 75, mins: 15, group: "Whole face", note: "Eyebrows, upper lip, chin and sides.", cal: "booking-full-face/" },
-    { id: "full-face-tint", name: "Full face and tinting", price: 100, mins: 20, group: "Whole face", cal: "booking-full-face-and-tint/" },
-    { id: "full-face-tint-neck", name: "Full face, tinting and neck", price: 115, mins: 20, group: "Whole face", cal: "booking-full-face-and-tint-and-neck/" },
-    { id: "upper-lip", name: "Upper lip", price: 15, mins: 5, group: "One spot", cal: "booking-upper-lip/" },
-    { id: "chin", name: "Chin", price: 15, mins: 5, group: "One spot", cal: "booking-chin/" },
-    { id: "forehead", name: "Forehead", price: 15, mins: 5, group: "One spot", cal: "booking-forehead/" },
-    { id: "neck", name: "Neck", price: 15, mins: 5, group: "One spot", cal: "booking-neck/" },
-    { id: "sideburns", name: "Sideburns", price: 20, mins: 5, group: "One spot", cal: "booking-sideburns/" }
-  ];
   var SALONS = { campus: "Campus (805 NW 13th St)", thornebrook: "Thornebrook (2441 NW 43rd St, Suite 7)" };
   var SALON_SHORT = { campus: "Campus", thornebrook: "Thornebrook" };
 
@@ -66,11 +45,16 @@
   }
   function iso(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
   function parseDay(v) { if (!v) return null; var a = v.split("-").map(Number); return new Date(a[0], a[1] - 1, a[2]); }
+  // nth: 1-4, or -1 for the last one in the month.
   function nthWeekday(y, m, nth, dow) {
+    if (nth === -1) {
+      var last = new Date(y, m + 1, 0);
+      return new Date(y, m, last.getDate() - ((last.getDay() - dow + 7) % 7));
+    }
     var first = new Date(y, m, 1); var off = (dow - first.getDay() + 7) % 7;
     return new Date(y, m, 1 + off + (nth - 1) * 7);
   }
-  function isDealDay(d, deal) { return d && nthWeekday(d.getFullYear(), d.getMonth(), deal.nth, deal.dow).getTime() === d.getTime(); }
+  function isDealDay(d, deal) { return !!(d && deal && nthWeekday(d.getFullYear(), d.getMonth(), deal.nth, deal.dow).getTime() === d.getTime()); }
   var today = salonToday();
   var max = new Date(today); max.setDate(max.getDate() + 90);
   $("day").min = iso(today); $("day").max = iso(max);
@@ -138,15 +122,15 @@
       deal.hidden = false; deal.textContent = "Save $" + (st.service.price - st.service.deal.price) + " on " + fmtDay.format(nd) + ", the next deal day.";
     } else { deal.hidden = true; }
 
-    var sunday = st.day && st.day.getDay() === 0;
-    $("err-day").hidden = !sunday; $("day-hint").hidden = sunday;
+    var closed = !!(st.day && CLOSED.indexOf(st.day.getDay()) !== -1);
+    $("err-day").hidden = !closed; $("day-hint").hidden = closed;
 
     if (online) {
       var url = (st.salon && ONLINE_BOOKING.bySalon[st.salon]) || ONLINE_BOOKING.url || online;
       $("go-online").href = url;
       return;
     }
-    $("go-calendar").href = OLD + (st.service ? st.service.cal : "booking-eyebrows/");
+    $("go-calendar").href = (st.service && st.service.cal) || DATA.defaultCalendar;
     if (st.service) {
       var msg = message(st);
       $("go-text").href = smsHref(msg);
@@ -165,7 +149,7 @@
     flag("err-salon", !st.salon, "step-salon");
     if (!online) {
       flag("err-name", !st.name, "step-name");
-      if (st.day && st.day.getDay() === 0) { ok = false; first = first || $("step-when"); }
+      if (st.day && CLOSED.indexOf(st.day.getDay()) !== -1) { ok = false; first = first || $("step-when"); }
     }
     if (first) {
       first.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });

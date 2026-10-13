@@ -30,7 +30,7 @@
       "url": "https://zibadebeaute.com/",
       "telephone": "+1-352-328-4727",
       "email": "zibasthreading@gmail.com",
-      "priceRange": "$15–$115",
+      "priceRange": "{{PRICE_RANGE}}",
       "address": {"@type": "PostalAddress", "streetAddress": "2441 NW 43rd St, Suite 7", "addressLocality": "Gainesville", "addressRegion": "FL", "postalCode": "32606", "addressCountry": "US"},
       "geo": {"@type": "GeoCoordinates", "latitude": 29.6757518, "longitude": -82.3871539},
       "founder": {"@type": "Person", "name": "Ziba Ahmadi"},
@@ -43,7 +43,7 @@
       "url": "https://zibadebeaute.com/",
       "telephone": "+1-352-328-4727",
       "email": "zibasthreading@gmail.com",
-      "priceRange": "$15–$115",
+      "priceRange": "{{PRICE_RANGE}}",
       "address": {"@type": "PostalAddress", "streetAddress": "805 NW 13th St", "addressLocality": "Gainesville", "addressRegion": "FL", "postalCode": "32601", "addressCountry": "US"},
       "geo": {"@type": "GeoCoordinates", "latitude": 29.6595994, "longitude": -82.338887},
       "founder": {"@type": "Person", "name": "Ziba Ahmadi"}
@@ -61,7 +61,7 @@
     <ul>
       <li><a href="#services">Services</a></li>
       <li><a href="#ziba">About Ziba</a></li>
-      <li><a href="#reviews">Reviews</a></li>
+{{NAV_GALLERY}}      <li><a href="#reviews">Reviews</a></li>
       <li><a href="#visit">Locations</a></li>
     </ul>
   </nav>
@@ -83,7 +83,7 @@
       <a class="btn" href="#services">Choose a service and book</a>
       <a class="btn btn-ghost" href="sms:+13523284727">Text (352) 328-4727</a>
     </div>
-    <p class="hero-note">Appointments only, Monday to Saturday. The phone line is text only.</p>
+    <p class="hero-note">{{HOURS}}. The phone line is text only.</p>
   </div>
 </section>
 
@@ -110,95 +110,23 @@
     <p class="services-help">Every price is per visit. After you tap Book, you pick the salon and a time that works.</p>
 
     <ul class="menu" id="menu">
-      <li class="item" data-group="brows">
-        <div class="item-main"><h3>Eyebrow threading</h3><p class="item-note">Not offering a thinner arch.</p></div>
-        <p class="item-meta"><span class="price">$25</span><span class="mins">5 min</span></p>
-        <a class="book" href="book.html?service=brows">Book<span class="vh"> eyebrow threading</span></a>
-        <p class="deal" data-nth="1" data-dow="1">$20 on the first Monday of every month.</p>
-      </li>
-      <li class="item" data-group="brows">
-        <div class="item-main"><h3>Eyebrow tinting</h3></div>
-        <p class="item-meta"><span class="price">$35</span><span class="mins">10 min</span></p>
-        <a class="book" href="book.html?service=tint">Book<span class="vh"> eyebrow tinting</span></a>
-      </li>
-      <li class="item" data-group="brows">
-        <div class="item-main"><h3>Eyebrow threading and tinting</h3></div>
-        <p class="item-meta"><span class="price">$50</span><span class="mins">10 min</span></p>
-        <a class="book" href="book.html?service=brows-tint">Book<span class="vh"> eyebrow threading and tinting</span></a>
-      </li>
-      <li class="item" data-group="plus">
-        <div class="item-main"><h3>Eyebrow threading and upper lip</h3></div>
-        <p class="item-meta"><span class="price">$35</span><span class="mins">10 min</span></p>
-        <a class="book" href="book.html?service=brows-lip">Book<span class="vh"> eyebrow threading and upper lip</span></a>
-        <p class="deal" data-nth="2" data-dow="2">$30 on the second Tuesday of every month.</p>
-      </li>
-      <li class="item" data-group="plus">
-        <div class="item-main"><h3>Eyebrow threading and tinting, plus upper lip</h3></div>
-        <p class="item-meta"><span class="price">$65</span><span class="mins">15 min</span></p>
-        <a class="book" href="book.html?service=brows-tint-lip">Book<span class="vh"> eyebrow threading and tinting plus upper lip</span></a>
-        <p class="deal" data-nth="3" data-dow="3">$60 on the third Wednesday of every month.</p>
-      </li>
-      <li class="item" data-group="plus">
-        <div class="item-main"><h3>Eyebrow threading and tinting, plus upper lip and chin</h3></div>
-        <p class="item-meta"><span class="price">$80</span><span class="mins">20 min</span></p>
-        <a class="book" href="book.html?service=brows-tint-lip-chin">Book<span class="vh"> eyebrow threading and tinting plus upper lip and chin</span></a>
-      </li>
-      <li class="item" data-group="face">
-        <div class="item-main"><h3>Full face</h3><p class="item-note">Eyebrows, upper lip, chin and sides.</p></div>
-        <p class="item-meta"><span class="price">$75</span><span class="mins">15 min</span></p>
-        <a class="book" href="book.html?service=full-face">Book<span class="vh"> full face</span></a>
-      </li>
-      <li class="item" data-group="face">
-        <div class="item-main"><h3>Full face and tinting</h3></div>
-        <p class="item-meta"><span class="price">$100</span><span class="mins">20 min</span></p>
-        <a class="book" href="book.html?service=full-face-tint">Book<span class="vh"> full face and tinting</span></a>
-      </li>
-      <li class="item" data-group="face">
-        <div class="item-main"><h3>Full face, tinting and neck</h3></div>
-        <p class="item-meta"><span class="price">$115</span><span class="mins">20 min</span></p>
-        <a class="book" href="book.html?service=full-face-tint-neck">Book<span class="vh"> full face, tinting and neck</span></a>
-      </li>
-      <li class="item" data-group="spot">
-        <div class="item-main"><h3>Upper lip</h3></div>
-        <p class="item-meta"><span class="price">$15</span><span class="mins">5 min</span></p>
-        <a class="book" href="book.html?service=upper-lip">Book<span class="vh"> upper lip</span></a>
-      </li>
-      <li class="item" data-group="spot">
-        <div class="item-main"><h3>Chin</h3></div>
-        <p class="item-meta"><span class="price">$15</span><span class="mins">5 min</span></p>
-        <a class="book" href="book.html?service=chin">Book<span class="vh"> chin</span></a>
-      </li>
-      <li class="item" data-group="spot">
-        <div class="item-main"><h3>Forehead</h3></div>
-        <p class="item-meta"><span class="price">$15</span><span class="mins">5 min</span></p>
-        <a class="book" href="book.html?service=forehead">Book<span class="vh"> forehead</span></a>
-      </li>
-      <li class="item" data-group="spot">
-        <div class="item-main"><h3>Neck</h3></div>
-        <p class="item-meta"><span class="price">$15</span><span class="mins">5 min</span></p>
-        <a class="book" href="book.html?service=neck">Book<span class="vh"> neck</span></a>
-      </li>
-      <li class="item" data-group="spot">
-        <div class="item-main"><h3>Sideburns</h3></div>
-        <p class="item-meta"><span class="price">$20</span><span class="mins">5 min</span></p>
-        <a class="book" href="book.html?service=sideburns">Book<span class="vh"> sideburns</span></a>
-      </li>
+{{SERVICES}}
     </ul>
   </div>
 </section>
 
+<!--DEALS_START-->
 <!-- DEALS -->
 <section class="deals" aria-labelledby="deals-title">
   <div class="wrap">
     <h2 id="deals-title">Monthly deal days</h2>
-    <p>A little treat goes a long way. Three services cost less on one day each month.</p>
+    <p>A little treat goes a long way. {{DEALS_INTRO}}</p>
     <ul class="deal-list">
-      <li><strong>Eyebrow threading, $20</strong><span>First Monday</span><span class="next" data-nth="1" data-dow="1"></span></li>
-      <li><strong>Eyebrow threading and upper lip, $30</strong><span>Second Tuesday</span><span class="next" data-nth="2" data-dow="2"></span></li>
-      <li><strong>Eyebrow threading and tinting, plus upper lip, $60</strong><span>Third Wednesday</span><span class="next" data-nth="3" data-dow="3"></span></li>
+{{DEALS}}
     </ul>
   </div>
 </section>
+<!--DEALS_END-->
 
 <!-- ABOUT -->
 <section class="about" id="ziba" aria-labelledby="ziba-title">
@@ -225,6 +153,7 @@
   </div>
 </section>
 
+{{GALLERY_TEASER}}
 <!-- PRESS -->
 <section class="press" aria-labelledby="press-title">
   <div class="wrap">
@@ -286,7 +215,7 @@
       </article>
     </div>
     <dl class="info">
-      <div><dt>Hours</dt><dd>Monday to Saturday, by appointment only</dd></div>
+      <div><dt>Hours</dt><dd>{{HOURS}}</dd></div>
       <div><dt>Book</dt><dd><a href="book.html">Book online</a>, or by text</dd></div>
       <div><dt>Text</dt><dd><a href="sms:+13523284727">(352) 328-4727</a> (text only, no calls)</dd></div>
       <div><dt>Email</dt><dd><a href="mailto:zibasthreading@gmail.com">zibasthreading@gmail.com</a></dd></div>
