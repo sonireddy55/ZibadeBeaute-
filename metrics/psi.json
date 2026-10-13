@@ -1,0 +1,13 @@
+{
+  "measuredAt": "2026-10-13T00:51:00Z",
+  "source": "pagespeed.web.dev, Lighthouse 13.5.0",
+  "reports": {
+    "old": "https://pagespeed.web.dev/analysis/https-zibadebeaute-com/5l4jp98miu",
+    "new": null
+  },
+  "old": {
+    "mobile":  { "scores": { "performance": 56, "accessibility": 78, "best-practices": 96, "seo": 85 }, "lcp_s": 11.0, "fcp_s": 8.3, "tbt_ms": 60, "cls": 0.08, "weight_kb": 2854, "requests": null },
+    "desktop": { "scores": { "performance": 83, "accessibility": 90, "best-practices": 96, "seo": 92 }, "lcp_s": 2.0, "fcp_s": 1.6, "tbt_ms": 0, "cls": 0, "weight_kb": 2708, "requests": null }
+  },
+  "new": { "mobile": null, "desktop": null }
+}

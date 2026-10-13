@@ -58,8 +58,7 @@
           <tr data-k="best-practices"><td>Best practices</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td></tr>
           <tr data-k="seo"><td>SEO</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td></tr>
           <tr data-m="lcp_s" data-u=" s"><td>Largest contentful paint</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td></tr>
-          <tr data-m="weight_kb" data-u=" KB"><td>Page weight</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td></tr>
-          <tr data-m="requests" data-u=""><td>Network requests</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td></tr>
+          <tr data-m="weight_kb" data-u=" KiB"><td>Page weight</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td><td class="num empty">pending</td></tr>
         </tbody>
       </table>
     </div>
@@ -102,14 +101,23 @@
       document.querySelectorAll("#psi tbody tr").forEach(function (tr) {
         var tds = tr.querySelectorAll("td.num");
         cols.forEach(function (c, i) {
+          if (!c) return;
           var v = tr.dataset.k ? c.scores[tr.dataset.k] : c[tr.dataset.m];
           if (v === null || v === undefined) return;
           tds[i].textContent = v + (tr.dataset.u || "");
           tds[i].classList.remove("empty");
         });
       });
-      document.getElementById("psi-when").textContent =
-        "Measured with Google PageSpeed Insights on " + new Date(d.measuredAt).toLocaleDateString("en-US", { dateStyle: "long" }) + ".";
+      var when = new Date(d.measuredAt).toLocaleDateString("en-US", { dateStyle: "long" });
+      var note = document.getElementById("psi-when");
+      note.textContent = "Measured with Google PageSpeed Insights (" + (d.source || "Lighthouse") + ") on " + when + ". ";
+      [["old", "Old site report"], ["new", "New site report"]].forEach(function (r) {
+        if (d.reports && d.reports[r[0]]) {
+          var a = document.createElement("a"); a.href = d.reports[r[0]]; a.textContent = r[1];
+          note.appendChild(a); note.appendChild(document.createTextNode(" "));
+        }
+      });
+      if (!d.new.mobile) note.appendChild(document.createTextNode("New site scores are pending its first public deploy."));
     })
     .catch(function () {});
 })();
