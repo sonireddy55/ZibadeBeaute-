@@ -69,7 +69,52 @@
     new IntersectionObserver(function (e) { servicesIn = e[0].isIntersecting; sync(); }).observe(services);
   }
 
-  // 5) Documentary: load YouTube only when someone asks to play it.
+  // 5) Scroll reveal: section headings rise in word by word; content blocks fade up.
+  (function () {
+    var root = document.documentElement;
+    // Wrap each word of every section heading (not the hero) in a mask.
+    document.querySelectorAll("main section:not(.hero) h2").forEach(function (h) {
+      var words = h.textContent.trim().split(/\s+/);
+      h.setAttribute("aria-label", h.textContent.trim());
+      h.textContent = "";
+      words.forEach(function (w, i) {
+        var outer = document.createElement("span");
+        outer.className = "w"; outer.setAttribute("aria-hidden", "true");
+        var inner = document.createElement("span");
+        inner.textContent = w; inner.style.setProperty("--i", i);
+        outer.appendChild(inner); h.appendChild(outer);
+        if (i < words.length - 1) h.appendChild(document.createTextNode(" "));
+      });
+      h.classList.add("split");
+    });
+    // Blocks that fade up; groups get a small stagger.
+    var groups = [
+      [".services-help, .router", 0], ["#menu .item", 40], [".deals p, .deal-list li", 90],
+      [".portrait", 0], [".about-grid > div > *", 80], [".press-list li", 60], [".film", 0],
+      [".reviews-sum", 0], [".loc", 120], [".info", 0], [".foot .wrap > *", 80]
+    ];
+    groups.forEach(function (g) {
+      document.querySelectorAll(g[0]).forEach(function (el, i) {
+        el.classList.add("rv"); el.style.setProperty("--d", Math.min(i, 6) * g[1] + "ms");
+      });
+    });
+    var rec = document.querySelector(".records");
+    if (rec) {
+      rec.classList.add("rv");
+      rec.querySelectorAll("img").forEach(function (img, i) { img.style.setProperty("--i", i); });
+    }
+    var targets = document.querySelectorAll(".rv, .split");
+    if (!("IntersectionObserver" in window)) { targets.forEach(function (t) { t.classList.add("in"); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+    targets.forEach(function (t) { io.observe(t); });
+    root.classList.add("rv-ready");
+  })();
+
+  // 6) Documentary: load YouTube only when someone asks to play it.
   var play = document.querySelector(".film-play");
   if (play) {
     play.addEventListener("click", function () {

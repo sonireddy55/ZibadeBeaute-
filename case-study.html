@@ -8,6 +8,7 @@
 <meta name="robots" content="noindex">
 <link rel="preload" href="assets/fonts/anybody-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="styles.css">
 <style>
   .cs { padding: clamp(48px, 7vw, 88px) 0; }
@@ -19,13 +20,14 @@
   table { width: 100%; border-collapse: collapse; font-size: var(--step--1); }
   caption { text-align: left; color: var(--muted); padding-bottom: 10px; }
   th, td { text-align: left; vertical-align: top; padding: 12px 12px 12px 0; border-bottom: 1px solid var(--line); }
-  thead th { border-bottom: 2px solid var(--ink); font-weight: 700; }
+  thead th { border-bottom: 2px solid var(--gold); font-weight: 700; }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .bad { color: var(--thread); font-weight: 700; }
-  .good { color: var(--turq); font-weight: 700; }
+  /* Old values read quieter; new values carry the brand berry. */
+  .bad { color: var(--muted); font-weight: 600; }
+  .good { color: var(--berry); font-weight: 700; }
   .scroll { overflow-x: auto; }
-  td.bad { color: var(--thread); font-weight: 700; }
-  td.good { color: var(--turq); font-weight: 700; }
+  td.bad { color: var(--muted); font-weight: 600; }
+  td.good { color: var(--berry); font-weight: 700; }
   .note { margin-top: 14px; color: var(--muted); font-size: var(--step--1); max-width: 70ch; }
   .back { display: inline-block; margin-top: 24px; }
   .empty { color: var(--muted); }
@@ -41,7 +43,7 @@
 <section class="cs">
   <div class="wrap">
     <h1>Redesigning Ziba de Beauté</h1>
-    <p class="lede">Ziba Ahmadi runs two threading salons in Gainesville. Her WordPress site spread the right information across five pages, with template leftovers, typos and out-of-date details, and took over 10 seconds to show its main content on a phone. The new site puts the full menu, prices, deal days, both locations and her press on one page, links each service straight to its booking page, and loads its main content in 1.2 seconds on a phone.</p>
+    <p class="lede">Ziba Ahmadi runs two threading salons in Gainesville. Her WordPress site spread the right information across five pages, with template leftovers, typos and out-of-date details, and took over 10 seconds to show its main content on a phone. The new site puts the full menu, prices, deal days, both locations and her press on one page, adds a booking page that builds the text to Ziba for you, and loads its main content in 1.2 seconds on a phone.</p>
     <p class="note">Both sites were tested with Google PageSpeed Insights (Lighthouse 13.5.0) on October 13, 2026, minutes apart. Every finding in the second table was checked against the live old site. Nothing on this page is estimated.</p>
   </div>
 </section>
@@ -101,7 +103,8 @@
 <section class="cs">
   <div class="wrap">
     <h2>How it was built</h2>
-    <p>Plain HTML, CSS and 84 lines of JavaScript, hosted free on GitHub Pages. There is no build step and nothing to update, so Ziba has no plugins to maintain.</p>
+    <p>Plain HTML, CSS and a small amount of JavaScript, hosted free on GitHub Pages. There is no build step and nothing to update, so Ziba has no plugins to maintain.</p>
+    <p>The booking page preselects the service you tapped, catches Sundays, prices deal days automatically, and writes the text to Ziba for you. When Ziba moves to a new booking system, one link in <code>book.js</code> switches its main button to online booking.</p>
     <p>Fonts are self-hosted and preloaded. Each fallback font is sized from the real font's measurements, so the headline does not move when the web fonts finish loading; that took layout shift from 0.061 to 0. The deal-day dates are worked out in the salon's own time zone. The YouTube documentary loads only when someone presses play.</p>
   </div>
 </section>
