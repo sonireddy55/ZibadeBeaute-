@@ -15,27 +15,7 @@
   var $ = function (id) { return document.getElementById(id); };
   var form = $("book-form");
 
-  // Build the service options, grouped.
-  var list = $("service-list");
-  var groups = {};
-  SERVICES.forEach(function (s) {
-    if (!groups[s.group]) {
-      var g = document.createElement("div"); g.className = "opt-group";
-      var h = document.createElement("p"); h.className = "opt-group-title"; h.textContent = s.group;
-      g.appendChild(h); list.appendChild(g); groups[s.group] = g;
-    }
-    var label = document.createElement("label"); label.className = "opt opt-service";
-    label.innerHTML =
-      '<input type="radio" name="service" value="' + s.id + '">' +
-      '<span class="opt-body"><span class="opt-title"></span>' +
-      (s.note ? '<span class="opt-sub"></span>' : "") +
-      (s.deal ? '<span class="opt-deal"></span>' : "") + "</span>" +
-      '<span class="opt-meta"><span class="opt-price">$' + s.price + '</span><span class="opt-mins">' + s.mins + " min</span></span>";
-    label.querySelector(".opt-title").textContent = s.name;
-    if (s.note) label.querySelector(".opt-sub").textContent = s.note;
-    if (s.deal) label.querySelector(".opt-deal").textContent = "$" + s.deal.price + " on the " + s.deal.label + " of every month";
-    groups[s.group].appendChild(label);
-  });
+  // Service options are already in the page (rendered by scripts/build.mjs).
 
   // Dates, in the salon's time zone.
   function salonToday() {
