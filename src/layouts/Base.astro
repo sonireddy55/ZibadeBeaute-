@@ -5,8 +5,10 @@ interface Props {
   description: string;
   bodyClass?: string;
   noindex?: boolean;
+  /** "/" for pages that can be shown at any depth (the 404 page); "" keeps links relative. */
+  root?: string;
 }
-const { title, description, bodyClass, noindex = false } = Astro.props;
+const { title, description, bodyClass, noindex = false, root = "" } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -18,10 +20,10 @@ const { title, description, bodyClass, noindex = false } = Astro.props;
 {noindex && <meta name="robots" content="noindex">}
 <meta name="theme-color" content="#5E3A4C">
 <slot name="head" />
-<link rel="preload" href="assets/fonts/anybody-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css">
+<link rel="preload" href={root + "assets/fonts/anybody-latin.woff2"} as="font" type="font/woff2" crossorigin>
+<link rel="preload" href={root + "assets/fonts/figtree-latin.woff2"} as="font" type="font/woff2" crossorigin>
+<link rel="icon" href={root + "assets/icon.svg"} type="image/svg+xml">
+<link rel="stylesheet" href={root + "styles.css"}>
 <script is:inline>document.documentElement.classList.add("js")</script>
 </head>
 <body class={bodyClass}>

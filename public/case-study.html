@@ -78,7 +78,7 @@
       <table>
         <thead><tr><th>Check</th><th>Old site</th><th>New site</th></tr></thead>
         <tbody>
-          <tr><td>Scripts loaded on the home page</td><td><span class="bad">57</span></td><td><span class="good">1</span>, about 4 KB, no framework</td></tr>
+          <tr><td>Scripts loaded on the home page</td><td><span class="bad">57</span></td><td><span class="good">1</span>, about 6 KB, no client-side framework</td></tr>
           <tr><td>Stylesheets loaded on the home page</td><td><span class="bad">45</span></td><td><span class="good">1</span></td></tr>
           <tr><td>Photos with descriptive alt text</td><td><span class="bad">0 of 4</span></td><td><span class="good">5 of 5</span></td></tr>
           <tr><td>Photo file size</td><td>544 KB as JPEG</td><td><span class="good">249 KB as WebP</span>, each resized to its largest display size</td></tr>
@@ -103,7 +103,7 @@
 <section class="cs">
   <div class="wrap">
     <h2>How it was built</h2>
-    <p>Plain HTML, CSS and a small amount of JavaScript, hosted free on GitHub Pages. There is no build step and nothing to update, so Ziba has no plugins to maintain.</p>
+    <p>Built with Astro and hosted free on Cloudflare Pages. Pages are rendered to static HTML at build time, so visitors download plain HTML, CSS and a little JavaScript, and Ziba has no plugins to maintain. She edits prices, deal days and photos in Pages CMS; each save rebuilds the site, and a check stops the build if an edit has a mistake.</p>
     <p>The booking page preselects the service you tapped, catches Sundays, prices deal days automatically, and writes the text to Ziba for you. When Ziba moves to a new booking system, one link in <code>book.js</code> switches its main button to online booking.</p>
     <p>Fonts are self-hosted and preloaded. Each fallback font is sized from the real font's measurements, so the headline does not move when the web fonts finish loading; that took layout shift from 0.061 to 0. The deal-day dates are worked out in the salon's own time zone. The YouTube documentary loads only when someone presses play.</p>
   </div>
