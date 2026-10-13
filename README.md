@@ -46,23 +46,35 @@ The [case study](https://sonireddy55.github.io/ZibadeBeaute-/case-study.html) ha
 
 ## Technical decisions
 
-- **No framework, no build step.** Plain HTML, CSS and vanilla JavaScript (no dependencies), hosted on GitHub Pages. The page works with JavaScript off; scripts only add the filter, the deal dates and the review ticker.
+- **No framework.** Plain HTML, CSS and vanilla JavaScript in the browser, built by a ~250-line Node script and hosted on GitHub Pages. The page works with JavaScript off; scripts only add the filter, the deal dates and the review ticker.
 - **Self-hosted fonts with metric-matched fallbacks.** Removing the Google Fonts request chain took mobile performance from 91 to 99. The fallback fonts are sized from the real fonts' measurements (computed with fontTools), so the headline does not move when the fonts load: layout shift went from 0.061 to 0.
 - **Images.** Converted to WebP and resized to their largest display size: 544 KB → 249 KB. Each has its width and height set, so nothing shifts while it loads.
 - **Lazy third parties.** The YouTube documentary loads only when someone presses play.
 - **Accessibility.** Skip link, visible focus, `aria-pressed` filter buttons, screen-reader labels on every Book link, and reduced-motion support for the thread animation and the review ticker.
 
+## How Ziba edits the site
+
+Prices, services, monthly deal days, hours, the online booking link and gallery photos live in `content/*.json`. Ziba edits them in [Pages CMS](https://pagescms.org) through simple forms (configured in `.pages.yml`), with no code. Every save:
+
+1. commits to this repo,
+2. runs `.github/workflows/build.yml`, which validates the content and builds the pages with `scripts/build.mjs` (uploaded photos are resized to WebP with sharp),
+3. publishes to GitHub Pages in about a minute.
+
+If an edit has a problem (an empty price, or a deal price above the regular price), the build stops with a plain-English list and the live site stays as it was. The Gallery page and menu link appear only once there is at least one photo.
+
 ## Run locally
 
 ```sh
-python3 -m http.server 8000
-# open http://localhost:8000
+npm install
+npm run build          # writes the site to _site/
+cd _site && python3 -m http.server 8000
 ```
 
 To re-measure: `NEW_URL=https://sonireddy55.github.io/ZibadeBeaute-/ node scripts/measure.mjs` (writes `metrics/psi-latest.json`).
 
 ## Before launch at zibadebeaute.com
 
-- **Online booking:** when Ziba has a new booking system (Square Appointments is planned), paste its link into `ONLINE_BOOKING` at the top of `book.js`. Until then, "See open times" uses her current WordPress calendar.
+- **Online booking:** when Ziba is set up on Square Appointments, she pastes her booking link in Pages CMS → Settings. Until then, "See open times" uses her current WordPress calendar.
+- **End-of-day unpaid-appointments text:** planned after the move to Square (needs her Square access key and a texting account such as Twilio).
 - **Hours:** the site says "Monday to Saturday, by appointment only", as the old site does, but Google Maps lists both salons as open daily. To confirm with Ziba.
 - `canonical` and `og:url` point to `https://zibadebeaute.com/`, which is correct only once this site replaces the old one.

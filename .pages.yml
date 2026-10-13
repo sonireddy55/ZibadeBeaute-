@@ -1,0 +1,150 @@
+# Pages CMS configuration (https://pagescms.org). This defines the forms Ziba uses to edit the site.
+# Every save commits to GitHub; .github/workflows/build.yml then rebuilds the pages (about 1 minute).
+
+media:
+  input: assets/uploads
+  output: assets/uploads
+  extensions: [jpg, jpeg, png, webp]
+
+content:
+  - name: services
+    label: Services and prices
+    description: Each service shows on the home page and the booking page, in this order. Drag to reorder.
+    type: file
+    path: content/services.json
+    format: json
+    list: true
+    fields:
+      - name: name
+        label: Service name
+        type: string
+        required: true
+      - name: price
+        label: Price ($)
+        type: number
+        required: true
+        options: { min: 0 }
+      - name: minutes
+        label: Time (minutes)
+        type: number
+        required: true
+        options: { min: 1 }
+      - name: category
+        label: Group
+        description: Which filter button shows this service.
+        type: select
+        required: true
+        options:
+          values:
+            - { value: brows, label: "Just my brows" }
+            - { value: plus, label: "Brows and a little more" }
+            - { value: face, label: "My whole face" }
+            - { value: spot, label: "One spot" }
+      - name: note
+        label: Short note (optional)
+        description: Shown under the name, for example "Not offering a thinner arch."
+        type: string
+      - name: deal_week
+        label: Monthly deal day, which week
+        description: Choose "No deal" to turn the deal off.
+        type: select
+        default: none
+        options:
+          values:
+            - { value: none, label: "No deal" }
+            - { value: first, label: "First" }
+            - { value: second, label: "Second" }
+            - { value: third, label: "Third" }
+            - { value: fourth, label: "Fourth" }
+            - { value: last, label: "Last" }
+      - name: deal_day
+        label: Monthly deal day, which day
+        type: select
+        options:
+          values:
+            - { value: monday, label: "Monday" }
+            - { value: tuesday, label: "Tuesday" }
+            - { value: wednesday, label: "Wednesday" }
+            - { value: thursday, label: "Thursday" }
+            - { value: friday, label: "Friday" }
+            - { value: saturday, label: "Saturday" }
+      - name: deal_price
+        label: Deal price ($)
+        description: Must be lower than the regular price.
+        type: number
+        options: { min: 0 }
+      - name: calendar_link
+        label: Current calendar link (optional)
+        description: The old WordPress booking page for this service. Leave empty once online booking is set up in Settings.
+        type: string
+
+  - name: gallery
+    label: Gallery
+    description: Before and after photos. The Gallery page appears on the site as soon as there is at least one photo. Only post clients who agreed to be shown.
+    type: file
+    path: content/gallery.json
+    format: json
+    list: true
+    fields:
+      - name: photo
+        label: Photo (the BEFORE photo, if this is a pair)
+        type: image
+        required: true
+      - name: after_photo
+        label: AFTER photo (optional)
+        description: Add one to show a before-and-after slider. It's cropped to match the first photo.
+        type: image
+      - name: service
+        label: Service (optional)
+        description: For example "Eyebrow threading and tinting".
+        type: string
+      - name: caption
+        label: Caption (optional)
+        type: string
+      - name: alt
+        label: Photo description for screen readers (optional)
+        description: For example "Full, softly arched brows after threading."
+        type: string
+      - name: instagram_url
+        label: Instagram post link (optional)
+        type: string
+
+  - name: settings
+    label: Settings
+    type: file
+    path: content/settings.json
+    format: json
+    fields:
+      - name: hours_text
+        label: Hours
+        description: Shown on the home and booking pages, for example "Monday to Saturday, by appointment only".
+        type: string
+        required: true
+      - name: closed_days
+        label: Closed days
+        description: The booking page won't let clients pick these days.
+        type: select
+        options:
+          multiple: true
+          values:
+            - { value: sunday, label: "Sunday" }
+            - { value: monday, label: "Monday" }
+            - { value: tuesday, label: "Tuesday" }
+            - { value: wednesday, label: "Wednesday" }
+            - { value: thursday, label: "Thursday" }
+            - { value: friday, label: "Friday" }
+            - { value: saturday, label: "Saturday" }
+      - name: online_booking_name
+        label: Online booking system name
+        description: For example "Square". Shown on the button.
+        type: string
+      - name: online_booking_url
+        label: Online booking link
+        description: Paste your Square booking link here to switch the booking page to online booking. Leave empty to keep booking by text.
+        type: string
+      - name: online_booking_url_campus
+        label: Online booking link, Campus only (optional)
+        type: string
+      - name: online_booking_url_thornebrook
+        label: Online booking link, Thornebrook only (optional)
+        type: string

@@ -1,0 +1,156 @@
+[
+  {
+    "name": "Eyebrow threading",
+    "price": 25,
+    "minutes": 5,
+    "category": "brows",
+    "note": "Not offering a thinner arch.",
+    "deal_price": 20,
+    "deal_week": "first",
+    "deal_day": "monday",
+    "calendar_link": "https://zibadebeaute.com/booking-eyebrows/"
+  },
+  {
+    "name": "Eyebrow tinting",
+    "price": 35,
+    "minutes": 10,
+    "category": "brows",
+    "note": "",
+    "deal_price": "",
+    "deal_week": "none",
+    "deal_day": "",
+    "calendar_link": "https://zibadebeaute.com/booking-eyebrow-tinting/"
+  },
+  {
+    "name": "Eyebrow threading and tinting",
+    "price": 50,
+    "minutes": 10,
+    "category": "brows",
+    "note": "",
+    "deal_price": "",
+    "deal_week": "none",
+    "deal_day": "",
+    "calendar_link": "https://zibadebeaute.com/booking-eyebrow-tint/"
+  },
+  {
+    "name": "Eyebrow threading and upper lip",
+    "price": 35,
+    "minutes": 10,
+    "category": "plus",
+    "note": "",
+    "deal_price": 30,
+    "deal_week": "second",
+    "deal_day": "tuesday",
+    "calendar_link": "https://zibadebeaute.com/booking-eyebrow-and-upper-lip/"
+  },
+  {
+    "name": "Eyebrow threading and tinting, plus upper lip",
+    "price": 65,
+    "minutes": 15,
+    "category": "plus",
+    "note": "",
+    "deal_price": 60,
+    "deal_week": "third",
+    "deal_day": "wednesday",
+    "calendar_link": "https://zibadebeaute.com/booking-eyebrow-threading-tinting-upper-lip/"
+  },
+  {
+    "name": "Eyebrow threading and tinting, plus upper lip and chin",
+    "price": 80,
+    "minutes": 20,
+    "category": "plus",
+    "note": "",
+    "deal_price": "",
+    "deal_week": "none",
+    "deal_day": "",
+    "calendar_link": "https://zibadebeaute.com/booking-eyebrow-threading-tinting-upper-lip-chin/"
+  },
+  {
+    "name": "Full face",
+    "price": 75,
+    "minutes": 15,
+    "category": "face",
+    "note": "Eyebrows, upper lip, chin and sides.",
+    "deal_price": "",
+    "deal_week": "none",
+    "deal_day": "",
+    "calendar_link": "https://zibadebeaute.com/booking-full-face/"
+  },
+  {
+    "name": "Full face and tinting",
+    "price": 100,
+    "minutes": 20,
+    "category": "face",
+    "note": "",
+    "deal_price": "",
+    "deal_week": "none",
+    "deal_day": "",
+    "calendar_link": "https://zibadebeaute.com/booking-full-face-and-tint/"
+  },
+  {
+    "name": "Full face, tinting and neck",
+    "price": 115,
+    "minutes": 20,
+    "category": "face",
+    "note": "",
+    "deal_price": "",
+    "deal_week": "none",
+    "deal_day": "",
+    "calendar_link": "https://zibadebeaute.com/booking-full-face-and-tint-and-neck/"
+  },
+  {
+    "name": "Upper lip",
+    "price": 15,
+    "minutes": 5,
+    "category": "spot",
+    "note": "",
+    "deal_price": "",
+    "deal_week": "none",
+    "deal_day": "",
+    "calendar_link": "https://zibadebeaute.com/booking-upper-lip/"
+  },
+  {
+    "name": "Chin",
+    "price": 15,
+    "minutes": 5,
+    "category": "spot",
+    "note": "",
+    "deal_price": "",
+    "deal_week": "none",
+    "deal_day": "",
+    "calendar_link": "https://zibadebeaute.com/booking-chin/"
+  },
+  {
+    "name": "Forehead",
+    "price": 15,
+    "minutes": 5,
+    "category": "spot",
+    "note": "",
+    "deal_price": "",
+    "deal_week": "none",
+    "deal_day": "",
+    "calendar_link": "https://zibadebeaute.com/booking-forehead/"
+  },
+  {
+    "name": "Neck",
+    "price": 15,
+    "minutes": 5,
+    "category": "spot",
+    "note": "",
+    "deal_price": "",
+    "deal_week": "none",
+    "deal_day": "",
+    "calendar_link": "https://zibadebeaute.com/booking-neck/"
+  },
+  {
+    "name": "Sideburns",
+    "price": 20,
+    "minutes": 5,
+    "category": "spot",
+    "note": "",
+    "deal_price": "",
+    "deal_week": "none",
+    "deal_day": "",
+    "calendar_link": "https://zibadebeaute.com/booking-sideburns/"
+  }
+]
