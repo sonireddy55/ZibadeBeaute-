@@ -1,0 +1,49 @@
+---
+// Gallery. Hidden from search engines (and from the menu) until it has photos.
+import Base from "../layouts/Base.astro";
+import GalleryItem from "../components/GalleryItem.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { site } from "../lib/content.js";
+const hasGallery = site.gallery.length > 0;
+---
+<Base title="Gallery | Ziba de Beauté" description="Before and after photos of eyebrow threading by Ziba Ahmadi in Gainesville, FL." bodyClass="gallery-page" noindex={!hasGallery}>
+<header class="bar">
+  <a class="wordmark" href="index.html" aria-label="Ziba de Beauté, home">Ziba <span>de Beauté</span></a>
+  <nav aria-label="Main">
+    <ul>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#ziba">About Ziba</a></li>
+      <li><a href="gallery.html" aria-current="page">Gallery</a></li>
+      <li><a href="index.html#visit">Locations</a></li>
+    </ul>
+  </nav>
+  <a class="btn btn-small" href="book.html">Book</a>
+</header>
+
+<main id="main">
+  <section class="book-head">
+    <div class="wrap">
+      <h1>Ziba's work</h1>
+      <p>Brows shaped with the thread alone, kept full and natural. Drag the handle on a photo to compare before and after.</p>
+    </div>
+  </section>
+
+  <section class="gallery">
+    <div class="wrap">
+      {hasGallery ? (
+        <ul class="gallery-grid">
+          {site.gallery.map((item, i) => <GalleryItem g={item} index={i} />)}
+        </ul>
+      ) : (
+        <div class="gallery-empty"><p>New photos are on the way. Until then, see Ziba's latest work on Instagram.</p></div>
+      )}
+      <p class="gallery-more">See more on Instagram: <a href="https://www.instagram.com/ziba_de_beaute/">@ziba_de_beaute</a></p>
+      <a class="btn" href="book.html">Book with Ziba</a>
+    </div>
+  </section>
+</main>
+
+<SiteFooter />
+
+<script is:inline src="gallery.js" defer></script>
+</Base>

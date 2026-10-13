@@ -1,0 +1,10 @@
+---
+// One row in the home page price list.
+const { s } = Astro.props;
+---
+<li class="item" data-group={s.category}>
+  <div class="item-main"><h3>{s.name}</h3>{s.note && <p class="item-note">{s.note}</p>}</div>
+  <p class="item-meta"><span class="price">${s.price}</span><span class="mins">{s.minutes} min</span></p>
+  <a class="book" href={`book.html?service=${s.id}`}>Book<span class="vh"> {s.name.toLowerCase()}</span></a>
+  {s.deal && <p class="deal" data-nth={s.deal.nth} data-dow={s.deal.dow}>${s.deal.price} on the {s.deal.label} of every month.</p>}
+</li>

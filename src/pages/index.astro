@@ -1,59 +1,40 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ziba de Beauté | Eyebrow Threading in Gainesville, FL</title>
-<meta name="description" content="Eyebrow threading and tinting by Ziba Ahmadi, Guinness World Record threader. Two Gainesville salons: Thornebrook (NW 43rd St) and Campus (NW 13th St). Book online or text (352) 328-4727.">
-<link rel="canonical" href="https://zibadebeaute.com/">
-<meta name="theme-color" content="#5E3A4C">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Ziba de Beauté">
-<meta property="og:title" content="Ziba de Beauté | Eyebrow Threading in Gainesville, FL">
-<meta property="og:description" content="Brows in about five minutes from a Guinness World Record threader. Two Gainesville locations.">
-<meta property="og:url" content="https://zibadebeaute.com/">
-<meta property="og:image" content="https://sonireddy55.github.io/ZibadeBeaute-/assets/record-crowd.webp">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="assets/fonts/anybody-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css">
-<script>document.documentElement.classList.add("js")</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "BeautySalon",
-      "@id": "https://zibadebeaute.com/#thornebrook",
-      "name": "Ziba de Beauté (Thornebrook)",
-      "url": "https://zibadebeaute.com/",
-      "telephone": "+1-352-328-4727",
-      "email": "zibasthreading@gmail.com",
-      "priceRange": "{{PRICE_RANGE}}",
-      "address": {"@type": "PostalAddress", "streetAddress": "2441 NW 43rd St, Suite 7", "addressLocality": "Gainesville", "addressRegion": "FL", "postalCode": "32606", "addressCountry": "US"},
-      "geo": {"@type": "GeoCoordinates", "latitude": 29.6757518, "longitude": -82.3871539},
-      "founder": {"@type": "Person", "name": "Ziba Ahmadi"},
-      "sameAs": ["https://www.instagram.com/ziba_de_beaute/", "https://www.facebook.com/zibathreading", "http://www.tiktok.com/@zibamagic", "https://www.yelp.com/biz/zibas-threading-gainesville"]
-    },
-    {
-      "@type": "BeautySalon",
-      "@id": "https://zibadebeaute.com/#campus",
-      "name": "Ziba de Beauté (Campus)",
-      "url": "https://zibadebeaute.com/",
-      "telephone": "+1-352-328-4727",
-      "email": "zibasthreading@gmail.com",
-      "priceRange": "{{PRICE_RANGE}}",
-      "address": {"@type": "PostalAddress", "streetAddress": "805 NW 13th St", "addressLocality": "Gainesville", "addressRegion": "FL", "postalCode": "32601", "addressCountry": "US"},
-      "geo": {"@type": "GeoCoordinates", "latitude": 29.6595994, "longitude": -82.338887},
-      "founder": {"@type": "Person", "name": "Ziba Ahmadi"}
-    }
-  ]
-}
-</script>
-</head>
-<body>
-<a class="skip" href="#main">Skip to content</a>
+---
+// Home page. Services, deals, hours and gallery come from content/*.json (Pages CMS).
+import Base from "../layouts/Base.astro";
+import ServiceItem from "../components/ServiceItem.astro";
+import GalleryItem from "../components/GalleryItem.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { site } from "../lib/content.js";
+
+const salon = (id, name, street, zip, lat, lng, extra = {}) => ({
+  "@type": "BeautySalon", "@id": `https://zibadebeaute.com/#${id}`, name, url: "https://zibadebeaute.com/",
+  telephone: "+1-352-328-4727", email: "zibasthreading@gmail.com", priceRange: site.priceRange,
+  address: { "@type": "PostalAddress", streetAddress: street, addressLocality: "Gainesville", addressRegion: "FL", postalCode: zip, addressCountry: "US" },
+  geo: { "@type": "GeoCoordinates", latitude: lat, longitude: lng },
+  founder: { "@type": "Person", name: "Ziba Ahmadi" }, ...extra
+});
+const jsonLd = { "@context": "https://schema.org", "@graph": [
+  salon("thornebrook", "Ziba de Beauté (Thornebrook)", "2441 NW 43rd St, Suite 7", "32606", 29.6757518, -82.3871539,
+    { sameAs: ["https://www.instagram.com/ziba_de_beaute/", "https://www.facebook.com/zibathreading", "http://www.tiktok.com/@zibamagic", "https://www.yelp.com/biz/zibas-threading-gainesville"] }),
+  salon("campus", "Ziba de Beauté (Campus)", "805 NW 13th St", "32601", 29.6595994, -82.338887)
+] };
+const hasGallery = site.gallery.length > 0;
+---
+<Base
+  title="Ziba de Beauté | Eyebrow Threading in Gainesville, FL"
+  description="Eyebrow threading and tinting by Ziba Ahmadi, Guinness World Record threader. Two Gainesville salons: Thornebrook (NW 43rd St) and Campus (NW 13th St). Book online or text (352) 328-4727."
+>
+  <Fragment slot="head">
+    <link rel="canonical" href="https://zibadebeaute.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Ziba de Beauté">
+    <meta property="og:title" content="Ziba de Beauté | Eyebrow Threading in Gainesville, FL">
+    <meta property="og:description" content="Brows in about five minutes from a Guinness World Record threader. Two Gainesville locations.">
+    <meta property="og:url" content="https://zibadebeaute.com/">
+    <meta property="og:image" content={new URL("assets/record-crowd.webp", Astro.site ?? "https://zibadebeaute.com/").href}>
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
 
 <header class="bar">
   <a class="wordmark" href="#top" aria-label="Ziba de Beauté, back to top">Ziba <span>de Beauté</span></a>
@@ -61,7 +42,8 @@
     <ul>
       <li><a href="#services">Services</a></li>
       <li><a href="#ziba">About Ziba</a></li>
-{{NAV_GALLERY}}      <li><a href="#reviews">Reviews</a></li>
+      {hasGallery && <li><a href="gallery.html">Gallery</a></li>}
+      <li><a href="#reviews">Reviews</a></li>
       <li><a href="#visit">Locations</a></li>
     </ul>
   </nav>
@@ -70,7 +52,7 @@
 
 <main id="main">
 
-<!-- HERO -->
+{/* HERO */}
 <section class="hero" id="top" aria-labelledby="hero-title">
   <svg class="thread" viewBox="0 0 1200 260" preserveAspectRatio="none" aria-hidden="true" focusable="false">
     <path d="M-20 210 C 180 210, 300 60, 520 55 S 820 120, 900 150 S 1100 190, 1220 120" />
@@ -83,11 +65,11 @@
       <a class="btn" href="#services">Choose a service and book</a>
       <a class="btn btn-ghost" href="sms:+13523284727">Text (352) 328-4727</a>
     </div>
-    <p class="hero-note">{{HOURS}}. The phone line is text only.</p>
+    <p class="hero-note">{site.hours}. The phone line is text only.</p>
   </div>
 </section>
 
-<!-- PROOF -->
+{/* PROOF */}
 <section class="proof" aria-label="Recognition">
   <ul>
     <li><strong>5.0 on Google</strong><span>2,441 reviews at the Campus salon</span></li>
@@ -96,7 +78,7 @@
   </ul>
 </section>
 
-<!-- SERVICES -->
+{/* SERVICES */}
 <section class="services" id="services" aria-labelledby="services-title">
   <div class="wrap">
     <h2 id="services-title">What do you need today?</h2>
@@ -110,25 +92,24 @@
     <p class="services-help">Every price is per visit. After you tap Book, you pick the salon and a time that works.</p>
 
     <ul class="menu" id="menu">
-{{SERVICES}}
+      {site.services.map((s) => <ServiceItem s={s} />)}
     </ul>
   </div>
 </section>
 
-<!--DEALS_START-->
-<!-- DEALS -->
+{site.deals.length > 0 && (
 <section class="deals" aria-labelledby="deals-title">
   <div class="wrap">
     <h2 id="deals-title">Monthly deal days</h2>
-    <p>A little treat goes a long way. {{DEALS_INTRO}}</p>
+    <p>A little treat goes a long way. {site.dealsIntro}</p>
     <ul class="deal-list">
-{{DEALS}}
+      {site.deals.map((s) => <li><strong>{s.name}, ${s.deal.price}</strong><span>{s.deal.when}</span><span class="next" data-nth={s.deal.nth} data-dow={s.deal.dow}></span></li>)}
     </ul>
   </div>
 </section>
-<!--DEALS_END-->
+)}
 
-<!-- ABOUT -->
+{/* ABOUT */}
 <section class="about" id="ziba" aria-labelledby="ziba-title">
   <div class="wrap about-grid">
     <figure class="portrait">
@@ -153,8 +134,19 @@
   </div>
 </section>
 
-{{GALLERY_TEASER}}
-<!-- PRESS -->
+{hasGallery && (
+<section class="teaser" aria-labelledby="teaser-title">
+  <div class="wrap">
+    <h2 id="teaser-title">Ziba's work</h2>
+    <ul class="gallery-grid">
+      {site.gallery.slice(0, 3).map((g, i) => <GalleryItem g={g} index={i} />)}
+    </ul>
+    <a class="teaser-link" href="gallery.html">See the full gallery</a>
+  </div>
+</section>
+)}
+
+{/* PRESS */}
 <section class="press" aria-labelledby="press-title">
   <div class="wrap">
     <h2 id="press-title">In the news</h2>
@@ -177,7 +169,7 @@
   </div>
 </section>
 
-<!-- REVIEWS -->
+{/* REVIEWS */}
 <section class="reviews" id="reviews" aria-labelledby="reviews-title">
   <div class="wrap">
     <h2 id="reviews-title">What clients say</h2>
@@ -197,7 +189,7 @@
   </div>
 </section>
 
-<!-- VISIT -->
+{/* VISIT */}
 <section class="visit" id="visit" aria-labelledby="visit-title">
   <div class="wrap">
     <h2 id="visit-title">Two salons in Gainesville</h2>
@@ -215,7 +207,7 @@
       </article>
     </div>
     <dl class="info">
-      <div><dt>Hours</dt><dd>{{HOURS}}</dd></div>
+      <div><dt>Hours</dt><dd>{site.hours}</dd></div>
       <div><dt>Book</dt><dd><a href="book.html">Book online</a>, or by text</dd></div>
       <div><dt>Text</dt><dd><a href="sms:+13523284727">(352) 328-4727</a> (text only, no calls)</dd></div>
       <div><dt>Email</dt><dd><a href="mailto:zibasthreading@gmail.com">zibasthreading@gmail.com</a></dd></div>
@@ -226,23 +218,10 @@
 
 </main>
 
-<footer class="foot">
-  <div class="wrap">
-    <p class="foot-mark">Ziba de Beauté</p>
-    <ul class="social" aria-label="Ziba on social media">
-      <li><a href="https://www.instagram.com/ziba_de_beaute/">Instagram</a></li>
-      <li><a href="http://www.tiktok.com/@zibamagic">TikTok</a></li>
-      <li><a href="https://www.facebook.com/zibathreading">Facebook</a></li>
-      <li><a href="https://www.youtube.com/channel/UCE4c3jP_mOveB4b4cFhfhWQ">YouTube</a></li>
-      <li><a href="https://twitter.com/salon_ziba">X (Twitter)</a></li>
-      <li><a href="https://www.linkedin.com/in/ziba-ahmadi-0425211ba/">LinkedIn</a></li>
-    </ul>
-    <p class="credit">Site by <a href="https://github.com/sonireddy55">Propolis Freelancing</a>.</p>
-  </div>
-</footer>
+<SiteFooter full />
 
 <a class="dock" href="book.html">Book a service</a>
 
-<script src="main.js" defer></script>
-</body>
-</html>
+<script is:inline src="main.js" defer></script>
+{hasGallery && <script is:inline src="gallery.js" defer></script>}
+</Base>

@@ -1,20 +1,15 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Book an appointment | Ziba de Beauté</title>
-<meta name="description" content="Book eyebrow threading with Ziba at her Campus or Thornebrook salon in Gainesville, FL.">
-<meta name="theme-color" content="#5E3A4C">
-<link rel="preload" href="assets/fonts/anybody-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css">
-<script>document.documentElement.classList.add("js")</script>
-</head>
-<body class="booking">
-<a class="skip" href="#main">Skip to content</a>
-
+---
+// Booking page. Service options are rendered here (not by book.js) so the page doesn't shift on load.
+import Base from "../layouts/Base.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { site, CATEGORIES } from "../lib/content.js";
+const groups = Object.keys(CATEGORIES).filter((c) => site.services.some((s) => s.category === c));
+const bookData = {
+  services: site.services.map((s) => ({ id: s.id, name: s.name, price: s.price, mins: s.minutes, group: s.group, note: s.note, cal: s.cal, deal: s.deal })),
+  online: site.online, closedDays: site.closedDays, defaultCalendar: site.defaultCalendar
+};
+---
+<Base title="Book an appointment | Ziba de Beauté" description="Book eyebrow threading with Ziba at her Campus or Thornebrook salon in Gainesville, FL." bodyClass="booking">
 <header class="bar">
   <a class="wordmark" href="index.html" aria-label="Ziba de Beauté, home">Ziba <span>de Beauté</span></a>
   <a class="bar-back" href="index.html#services">All services</a>
@@ -34,7 +29,18 @@
       <fieldset class="step" id="step-service">
         <legend><span class="step-n">1</span>Service</legend>
         <div class="opts opts-services" id="service-list">
-{{SERVICE_OPTIONS}}
+{groups.map((c) => (
+          <div class="opt-group">
+            <p class="opt-group-title">{CATEGORIES[c]}</p>
+            {site.services.filter((s) => s.category === c).map((s) => (
+              <label class="opt opt-service">
+                <input type="radio" name="service" value={s.id}>
+                <span class="opt-body"><span class="opt-title">{s.name}</span>{s.note && <span class="opt-sub">{s.note}</span>}{s.deal && <span class="opt-deal">${s.deal.price} on the {s.deal.label} of every month</span>}</span>
+                <span class="opt-meta"><span class="opt-price">${s.price}</span><span class="opt-mins">{s.minutes} min</span></span>
+              </label>
+            ))}
+          </div>
+        ))}
         </div>
         <p class="field-error" id="err-service" hidden>Choose a service to continue.</p>
       </fieldset>
@@ -67,8 +73,8 @@
             <label class="opt opt-chip"><input type="radio" name="tod" value="evening"><span>Evening</span></label>
           </div>
         </div>
-        <p class="field-hint" id="day-hint">Open {{HOURS}}.</p>
-        <p class="field-error" id="err-day" hidden>Ziba is closed that day. Open {{HOURS}}.</p>
+        <p class="field-hint" id="day-hint">Open {site.hours}.</p>
+        <p class="field-error" id="err-day" hidden>Ziba is closed that day. Open {site.hours}.</p>
       </fieldset>
 
       <fieldset class="step" id="step-name">
@@ -113,14 +119,8 @@
   </div>
 </main>
 
-<footer class="foot">
-  <div class="wrap">
-    <p class="foot-mark">Ziba de Beauté</p>
-    <p class="credit"><a href="index.html">Back to the home page</a></p>
-  </div>
-</footer>
+<SiteFooter />
 
-<script type="application/json" id="book-data">{{BOOK_DATA}}</script>
-<script src="book.js" defer></script>
-</body>
-</html>
+<script type="application/json" id="book-data" set:html={JSON.stringify(bookData).replace(/</g, "\\u003c")} />
+<script is:inline src="book.js" defer></script>
+</Base>
