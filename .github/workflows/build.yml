@@ -1,12 +1,13 @@
-# Builds the Astro site and publishes a copy to GitHub Pages (backup host while
-# Cloudflare Pages is the main host). Runs on every push to main, including saves
-# from Pages CMS. If content has a problem, the build fails with a plain-English list
-# and the live site stays as it was.
-name: Build and publish site
+# The site is hosted on Cloudflare Pages (zibadebeaute.pages.dev), which builds it
+# from this repo on every push. This workflow only keeps the old GitHub Pages
+# address working: it publishes redirect/, which forwards every old URL to the
+# same page on Cloudflare.
+name: GitHub Pages redirect
 
 on:
   push:
     branches: [main]
+    paths: [redirect/**, .github/workflows/build.yml]
   workflow_dispatch:
 
 permissions:
@@ -19,30 +20,16 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run build
-        env:
-          BASE_PATH: /ZibadeBeaute-
-          SITE_URL: https://sonireddy55.github.io
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: redirect
       - id: deployment
         uses: actions/deploy-pages@v4

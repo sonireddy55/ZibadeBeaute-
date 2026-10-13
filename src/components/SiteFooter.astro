@@ -1,6 +1,6 @@
 ---
 // Footer. The full version (social links) is used on the home page.
-const { full = false } = Astro.props;
+const { full = false, home = "index.html" } = Astro.props;
 ---
 <footer class="foot">
   <div class="wrap">
@@ -18,7 +18,7 @@ const { full = false } = Astro.props;
         <p class="credit">Site by <a href="https://github.com/sonireddy55">Propolis Freelancing</a>.</p>
       </>
     ) : (
-      <p class="credit"><a href="index.html">Back to the home page</a></p>
+      <p class="credit"><a href={home}>Back to the home page</a></p>
     )}
   </div>
 </footer>

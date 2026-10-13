@@ -1,0 +1,24 @@
+---
+// Shown (with a real 404 status) for any address that doesn't exist.
+import Base from "../layouts/Base.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+---
+<Base title="Page not found | Ziba de Beauté" description="This page doesn't exist." noindex root="/">
+<header class="bar">
+  <a class="wordmark" href="/" aria-label="Ziba de Beauté, home">Ziba <span>de Beauté</span></a>
+  <a class="btn btn-small" href="/book.html">Book</a>
+</header>
+<main id="main">
+  <section class="book-head">
+    <div class="wrap">
+      <h1>Page not found</h1>
+      <p>This page doesn't exist or has moved. You can see all services and prices on the home page, or book a visit.</p>
+      <div class="hero-actions">
+        <a class="btn" href="/">Go to the home page</a>
+        <a class="btn btn-ghost" href="/book.html">Book a visit</a>
+      </div>
+    </div>
+  </section>
+</main>
+<SiteFooter home="/" />
+</Base>

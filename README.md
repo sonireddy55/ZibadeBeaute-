@@ -1,7 +1,7 @@
 # Ziba de Beauté: salon website redesign
 
-**Live site:** https://sonireddy55.github.io/ZibadeBeaute-/
-**Case study:** https://sonireddy55.github.io/ZibadeBeaute-/case-study.html
+**Live site:** https://zibadebeaute.pages.dev/
+**Case study:** https://zibadebeaute.pages.dev/case-study.html
 
 A redesign of [zibadebeaute.com](https://zibadebeaute.com) for Ziba Ahmadi, a Guinness World Record eyebrow threader with two salons in Gainesville, FL. Client work by Propolis Freelancing.
 
@@ -29,7 +29,7 @@ Other measured changes on the home page:
 - Structured data for Google: none for the business → a `BeautySalon` entry for each location.
 - Visible typos: 4 → 0. Leftover template content ("Hello world!" post and others): 4 items → 0.
 
-The [case study](https://sonireddy55.github.io/ZibadeBeaute-/case-study.html) has the full before-and-after list.
+The [case study](https://zibadebeaute.pages.dev/case-study.html) has the full before-and-after list.
 
 ## What I built
 
@@ -46,7 +46,7 @@ The [case study](https://sonireddy55.github.io/ZibadeBeaute-/case-study.html) ha
 
 ## Technical decisions
 
-- **No framework.** Plain HTML, CSS and vanilla JavaScript in the browser, built by a ~250-line Node script and hosted on GitHub Pages. The page works with JavaScript off; scripts only add the filter, the deal dates and the review ticker.
+- **Astro, static output, on Cloudflare Pages.** Pages are Astro templates and components (`src/`); the browser gets plain HTML, CSS and a little vanilla JavaScript (no client-side framework). The page works with JavaScript off; scripts only add the filter, the deal dates and the review ticker.
 - **Self-hosted fonts with metric-matched fallbacks.** Removing the Google Fonts request chain took mobile performance from 91 to 99. The fallback fonts are sized from the real fonts' measurements (computed with fontTools), so the headline does not move when the fonts load: layout shift went from 0.061 to 0.
 - **Images.** Converted to WebP and resized to their largest display size: 544 KB → 249 KB. Each has its width and height set, so nothing shifts while it loads.
 - **Lazy third parties.** The YouTube documentary loads only when someone presses play.
@@ -57,8 +57,8 @@ The [case study](https://sonireddy55.github.io/ZibadeBeaute-/case-study.html) ha
 Prices, services, monthly deal days, hours, the online booking link and gallery photos live in `content/*.json`. Ziba edits them in [Pages CMS](https://pagescms.org) through simple forms (configured in `.pages.yml`), with no code. Every save:
 
 1. commits to this repo,
-2. runs `.github/workflows/build.yml`, which validates the content and builds the pages with `scripts/build.mjs` (uploaded photos are resized to WebP with sharp),
-3. publishes to GitHub Pages in about a minute.
+2. triggers a Cloudflare Pages build (`npm run build`), where `src/lib/content.js` validates the content and Astro builds the pages and converts uploaded photos to WebP,
+3. publishes to zibadebeaute.pages.dev in about a minute.
 
 If an edit has a problem (an empty price, or a deal price above the regular price), the build stops with a plain-English list and the live site stays as it was. The Gallery page and menu link appear only once there is at least one photo.
 
@@ -66,15 +66,16 @@ If an edit has a problem (an empty price, or a deal price above the regular pric
 
 ```sh
 npm install
-npm run build          # writes the site to _site/
-cd _site && python3 -m http.server 8000
+npm run dev            # local preview at http://localhost:4321
+npm run build          # writes the site to dist/
 ```
 
-To re-measure: `NEW_URL=https://sonireddy55.github.io/ZibadeBeaute-/ node scripts/measure.mjs` (writes `metrics/psi-latest.json`).
+To re-measure: `NEW_URL=https://zibadebeaute.pages.dev/ node scripts/measure.mjs` (writes `metrics/psi-latest.json`).
 
 ## Before launch at zibadebeaute.com
 
 - **Online booking:** when Ziba is set up on Square Appointments, she pastes her booking link in Pages CMS → Settings. Until then, "See open times" uses her current WordPress calendar.
 - **End-of-day unpaid-appointments text:** planned after the move to Square (needs her Square access key and a texting account such as Twilio).
 - **Hours:** the site says "Monday to Saturday, by appointment only", as the old site does, but Google Maps lists both salons as open daily. To confirm with Ziba.
+- The old GitHub Pages address (sonireddy55.github.io/ZibadeBeaute-) redirects every page to Cloudflare (`redirect/`, deployed by `.github/workflows/build.yml`).
 - `canonical` and `og:url` point to `https://zibadebeaute.com/`, which is correct only once this site replaces the old one.
