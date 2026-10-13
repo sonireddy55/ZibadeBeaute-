@@ -65,8 +65,8 @@
             <label class="opt opt-chip"><input type="radio" name="tod" value="evening"><span>Evening</span></label>
           </div>
         </div>
-        <p class="field-hint" id="day-hint">Open Monday to Saturday, by appointment.</p>
-        <p class="field-error" id="err-day" hidden>Ziba is closed on Sundays. Pick Monday to Saturday.</p>
+        <p class="field-hint" id="day-hint">Open {{HOURS}}.</p>
+        <p class="field-error" id="err-day" hidden>Ziba is closed that day. Open {{HOURS}}.</p>
       </fieldset>
 
       <fieldset class="step" id="step-name">
@@ -118,6 +118,7 @@
   </div>
 </footer>
 
+<script type="application/json" id="book-data">{{BOOK_DATA}}</script>
 <script src="book.js" defer></script>
 </body>
 </html>

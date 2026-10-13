@@ -24,7 +24,12 @@
     var get = function (t) { return Number(parts.find(function (p) { return p.type === t; }).value); };
     return new Date(get("year"), get("month") - 1, get("day"));
   }
+  // nth: 1-4, or -1 for the last one in the month.
   function nthWeekday(year, month, nth, dow) {
+    if (nth === -1) {
+      var last = new Date(year, month + 1, 0);
+      return new Date(year, month, last.getDate() - ((last.getDay() - dow + 7) % 7));
+    }
     var first = new Date(year, month, 1);
     var offset = (dow - first.getDay() + 7) % 7;
     return new Date(year, month, 1 + offset + (nth - 1) * 7);
