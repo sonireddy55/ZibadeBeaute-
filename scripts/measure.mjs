@@ -1,5 +1,5 @@
 // Measure the old and new sites with Google PageSpeed Insights and save the results
-// to metrics/psi.json, which case-study.html reads.
+// to metrics/psi-latest.json. Recorded results live in metrics/psi.json.
 //
 // Usage (Node 18+):
 //   NEW_URL=https://<your-deployed-url>/ node scripts/measure.mjs
@@ -50,5 +50,5 @@ for (const strategy of ["mobile", "desktop"]) {
   console.log(strategy, "old", out.old[strategy].scores, "new", out.new[strategy].scores);
 }
 await mkdir("metrics", { recursive: true });
-await writeFile("metrics/psi.json", JSON.stringify(out, null, 2));
-console.log("Saved metrics/psi.json");
+await writeFile("metrics/psi-latest.json", JSON.stringify(out, null, 2));
+console.log("Saved metrics/psi-latest.json");

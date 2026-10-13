@@ -1,11 +1,55 @@
-# Ziba de Beauté — website redesign
+# Ziba de Beauté: salon website redesign
 
-A redesign of [zibadebeaute.com](https://zibadebeaute.com) for Ziba Ahmadi's eyebrow threading salons in Gainesville, FL. Built by Propolis Freelancing.
+**Live site:** https://sonireddy55.github.io/ZibadeBeaute-/
+**Case study:** https://sonireddy55.github.io/ZibadeBeaute-/case-study.html
 
-- `index.html`: the new site (one page: services and prices, deal days, about Ziba, press, reviews, locations)
-- `case-study.html`: before-and-after comparison for the client and for recruiters
-- `styles.css`, `main.js`: no framework, no build step
-- `scripts/measure.mjs`: runs Google PageSpeed Insights on the old and new sites and writes `metrics/psi.json`, which `case-study.html` displays
+A redesign of [zibadebeaute.com](https://zibadebeaute.com) for Ziba Ahmadi, a Guinness World Record eyebrow threader with two salons in Gainesville, FL. Client work by Propolis Freelancing.
+
+![New site, desktop](docs/desktop.png)
+
+## Results
+
+Measured with Google PageSpeed Insights (Lighthouse 13.5.0) on both sites, minutes apart, on October 13, 2026.
+
+| | Old, mobile | New, mobile | Old, desktop | New, desktop |
+|---|---:|---:|---:|---:|
+| Performance | 44 | **99** | 79 | **100** |
+| Accessibility | 78 | **100** | 90 | **100** |
+| Best practices | 96 | **100** | 96 | **100** |
+| SEO | 85 | **100** | 92 | **100** |
+| Largest contentful paint | 10.7 s | **1.2 s** | 1.9 s | **0.3 s** |
+| Page weight | 2,852 KiB | **89 KiB** | 2,708 KiB | **342 KiB** |
+
+PageSpeed varies run to run. An earlier run scored the old site 56 on mobile performance; [all runs are recorded](metrics/psi.json) with links to the full reports.
+
+Other measured changes on the home page:
+
+- Scripts: 57 → 1. Stylesheets: 45 → 1.
+- Photos with descriptive alt text: 0 of 4 → 5 of 5.
+- Structured data for Google: none for the business → a `BeautySalon` entry for each location.
+- Visible typos: 4 → 0. Leftover template content ("Hello world!" post and others): 4 items → 0.
+
+The [case study](https://sonireddy55.github.io/ZibadeBeaute-/case-study.html) has the full before-and-after list.
+
+## What I built
+
+- **One page instead of five.** All 14 services with prices and times, a "What do you need today?" filter, both locations, press, reviews and contact info. Each service links straight to its booking page.
+- **Deal days that show real dates.** The old site said "first Monday of each month". The new one works out the next date in the salon's time zone and highlights the deal on the day.
+- **Accurate content.** Fixed the search description, which listed three services she doesn't offer. The text-only number now opens a text message instead of a call. Both locations are listed. Each press mention links to the article.
+- **Mobile first.** A sticky booking button appears once you scroll past the hero. Every button is at least 44 px tall, and nothing scrolls sideways at widths from 320 px up.
+
+<p>
+  <img src="docs/mobile.png" width="260" alt="New site on a phone: hero">
+  <img src="docs/mobile-services.png" width="260" alt="New site on a phone: services with the filter">
+</p>
+
+## Technical decisions
+
+- **No framework, no build step.** Plain HTML, CSS and 84 lines of JavaScript, hosted on GitHub Pages. The page works with JavaScript off; scripts only add the filter, the deal dates and the review ticker.
+- **Self-hosted fonts with metric-matched fallbacks.** Removing the Google Fonts request chain took mobile performance from 91 to 99. The fallback fonts are sized from the real fonts' measurements (computed with fontTools), so the headline does not move when the fonts load: layout shift went from 0.061 to 0.
+- **Images.** Converted to WebP and resized to their largest display size: 544 KB → 249 KB. Each has its width and height set, so nothing shifts while it loads.
+- **Lazy third parties.** The YouTube documentary loads only when someone presses play.
+- **Accessibility.** Skip link, visible focus, `aria-pressed` filter buttons, screen-reader labels on every Book link, and reduced-motion support for the thread animation and the review ticker.
 
 ## Run locally
 
@@ -14,22 +58,10 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
-## Deploy (GitHub Pages)
+To re-measure: `NEW_URL=https://sonireddy55.github.io/ZibadeBeaute-/ node scripts/measure.mjs` (writes `metrics/psi-latest.json`).
 
-Repo Settings → Pages → Source: "Deploy from a branch", branch `main`, folder `/ (root)`.
+## Before launch at zibadebeaute.com
 
-## Measure
-
-After the site is deployed:
-
-```sh
-NEW_URL=https://sonireddy55.github.io/zibadebeaute-/ node scripts/measure.mjs
-git add metrics/psi.json && git commit -m "Add PageSpeed results" && git push
-```
-
-## Open items before launch
-
-- Photos live in `assets/` as WebP, resized to their largest display size. Combined they are 249 KB, down from 544 KB as JPEGs on the old site.
-- **Booking still runs on the old WordPress booking pages.** Each Book button links to the existing page for that service. If the old site is replaced at the same domain, booking needs a new home (for example Square or Vagaro) before launch.
-- **Hours:** the site says "Monday to Saturday, by appointment only," as the old site does. Google Maps lists both salons as open daily. Confirm with Ziba which is right.
-- `canonical` and `og:url` point to `https://zibadebeaute.com/`. Keep them only if this site replaces the old one at that domain.
+- **Booking** still runs on the old WordPress booking pages. If this site replaces WordPress at the same domain, booking needs a new home first.
+- **Hours:** the site says "Monday to Saturday, by appointment only", as the old site does, but Google Maps lists both salons as open daily. To confirm with Ziba.
+- `canonical` and `og:url` point to `https://zibadebeaute.com/`, which is correct only once this site replaces the old one.

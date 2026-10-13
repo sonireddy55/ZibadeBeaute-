@@ -81,7 +81,7 @@ a:hover { color: var(--ink); }
 .btn:hover { background: #A51A34; border-color: #A51A34; color: #fff; }
 .btn-ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.7); }
 .btn-ghost:hover { background: #fff; color: var(--ink); border-color: #fff; }
-.btn-small { min-height: 40px; padding: 0 18px; font-size: var(--step--1); }
+.btn-small { min-height: 44px; padding: 0 18px; font-size: var(--step--1); }
 
 /* Top bar */
 .bar {
